@@ -223,3 +223,16 @@ The readings table is linked to the users table through the user_id foreign key.
 ## Disclaimer
 
 Sweety is an educational health-tracking application. It is not a medical device and does not replace professional medical advice, diagnosis, or treatment.
+## Notes
+
+### Assumptions
+- Each user can record a maximum of four glucose readings per day.
+- Each time slot can have only one reading per date.
+- Glucose values are recorded in mg/dL.
+- Only authenticated users can access their own readings.
+
+### Future Improvements
+- Add pagination for reading history.
+- Add automated frontend and backend tests.
+- Improve accessibility and mobile responsiveness.
+- Add deployment and production monitoring.
