@@ -1,6 +1,6 @@
 # Sweety – Blood Glucose Tracker
+Sweety is a full-stack blood glucose tracking application built using **React.js, Node.js, Express.js, and PostgreSQL**.
 
-Sweety is a blood glucose tracking application built using the MERN-style development approach with **React.js, Node.js, Express.js, and PostgreSQL**.
 
 It allows users to securely register, log in, record daily blood glucose readings, manage their records, and view reports.
 
@@ -35,8 +35,12 @@ It allows users to securely register, log in, record daily blood glucose reading
 - JSON Web Token (JWT)
 
 **Frontend**
-- React.js (planned)
-
+- React.js
+- JavaScript
+- CSS
+- Axios
+- React Router
+- Recharts
 **Tools**
 - Visual Studio Code
 - pgAdmin 4
@@ -76,7 +80,7 @@ Sweety-Blood-Glucose-Tracker/
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/sahanadm62-png/Sweety-Blood-Glucose-Tracker.git
 cd Sweety-Blood-Glucose-Tracker
 ```
 
@@ -118,8 +122,16 @@ The backend runs at:
 ```text
 http://localhost:5000
 ```
+### 6. Set up the frontend
 
-### 6. Seed sample data
+Open a new terminal from the project root:
+
+```bash
+cd frontend
+npm install
+npm run dev
+
+### 7. Seed sample data
 
 ```bash
 npm run seed
@@ -205,4 +217,8 @@ Stores blood glucose readings.
 - value
 - created_at
 
-The readings table
+The readings table is linked to the users table through the user_id foreign key. Each user can manage only their own glucose readings.
+
+## Disclaimer
+
+Sweety is an educational health-tracking application. It is not a medical device and does not replace professional medical advice, diagnosis, or treatment.
