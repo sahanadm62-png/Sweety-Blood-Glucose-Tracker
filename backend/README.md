@@ -1,41 +1,50 @@
 # Sweety – Blood Glucose Tracker
 
-Sweety is a blood glucose tracking application built using the MERN-style development approach with **React.js, Node.js, Express.js, and PostgreSQL**.
+Sweety is a full-stack blood glucose tracking application built using React.js, Node.js, Express.js, and PostgreSQL.
 
-It allows users to securely register, log in, record daily blood glucose readings, manage their records, and view reports.
+It helps users securely record, manage, and monitor their daily blood glucose readings through a simple dashboard, visual trends, and reports.
 
 ## Features
 
-- User registration and login.
-- Password hashing using bcrypt.
-- JWT-based authentication.
-- Add, view, update, and delete glucose readings.
+- User registration and login
+- Secure password hashing using bcrypt
+- JWT-based authentication
+- Add, view, update, and delete glucose readings
 - Four daily reading slots:
   - Morning fasting
   - After breakfast
   - After lunch
   - After dinner
-- Reading validation (40–600 mg/dL).
-- Prevent duplicate readings for the same slot and date.
-- Prevent future-dated readings.
-- User-specific data access.
-- Daily glucose reports.
-- Month-to-date reports.
-- Previous-month reports.
-- Database seeding with sample data.
+- Input validation (40–600 mg/dL)
+- Prevention of duplicate readings for the same slot and date
+- Prevention of future-dated readings
+- User-specific data access
+- Daily glucose reports
+- Month-to-date reports
+- Previous-month reports
+- Highest, lowest, and average reading calculations
+- Glucose trend visualization using charts
+- Sample database seeding
 
 ## Technology Stack
+
+**Frontend**
+- React.js
+- JavaScript
+- CSS
+- Axios
+- React Router
+- Recharts
 
 **Backend**
 - Node.js
 - Express.js
-- PostgreSQL
-- pg
 - bcrypt
 - JSON Web Token (JWT)
 
-**Frontend**
-- React.js (planned)
+**Database**
+- PostgreSQL
+- pg
 
 **Tools**
 - Visual Studio Code
@@ -60,13 +69,27 @@ Sweety-Blood-Glucose-Tracker/
 │   ├── routes/
 │   │   ├── authRoutes.js
 │   │   └── readingRoutes.js
-│   ├── tests/
 │   ├── .env.example
 │   ├── seed.js
 │   ├── server.js
 │   └── package.json
 │
 ├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── GlucoseChart.jsx
+│   │   │   ├── ReadingForm.jsx
+│   │   │   └── Reports.jsx
+│   │   ├── pages/
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Login.jsx
+│   │   │   └── Signup.jsx
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   ├── App.jsx
+│   │   └── App.css
+│   └── package.json
+│
 ├── .gitignore
 └── README.md
 ```
@@ -76,17 +99,20 @@ Sweety-Blood-Glucose-Tracker/
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/sahanadm62-png/Sweety-Blood-Glucose-Tracker.git
 cd Sweety-Blood-Glucose-Tracker
 ```
 
-### 2. Set up the database
+### 2. Set up PostgreSQL
 
 - Install PostgreSQL.
 - Create a database named `sweety_db`.
-- Open pgAdmin and execute the SQL commands from `backend/models/init.sql`.
+- Open pgAdmin.
+- Execute the SQL commands from `backend/models/init.sql`.
 
 ### 3. Set up the backend
+
+Open a terminal:
 
 ```bash
 cd backend
@@ -95,31 +121,39 @@ npm install
 
 ### 4. Configure environment variables
 
-Create a `.env` file inside the `backend` folder using `.env.example` as a reference.
+Create a `.env` file inside the `backend` folder.
 
-Configure your PostgreSQL credentials and JWT secret.
+Use `backend/.env.example` as a reference and configure your PostgreSQL credentials and JWT secret.
 
-### 5. Start the backend server
+Never commit your actual `.env` file.
 
-Development mode:
+### 5. Start the backend
 
 ```bash
 npm run dev
 ```
 
-Production mode:
-
-```bash
-npm start
-```
-
 The backend runs at:
 
-```text
-http://localhost:5000
+`http://localhost:5000`
+
+### 6. Set up the frontend
+
+Open a second terminal from the project root:
+
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-### 6. Seed sample data
+The frontend runs at:
+
+`http://localhost:5173`
+
+### 7. Add sample data (optional)
+
+From the backend folder:
 
 ```bash
 npm run seed
@@ -141,16 +175,12 @@ Demo account:
 
 ### Glucose Readings
 
-All reading endpoints require a valid JWT access token in the Authorization header.
-
-```text
-Authorization: Bearer YOUR_TOKEN
-```
+All reading endpoints require a valid JWT access token.
 
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/api/readings` | Add a reading |
-| GET | `/api/readings` | Get all user readings |
+| GET | `/api/readings` | Get user readings |
 | PUT | `/api/readings/:id` | Update a reading |
 | DELETE | `/api/readings/:id` | Delete a reading |
 
@@ -162,47 +192,31 @@ Authorization: Bearer YOUR_TOKEN
 | GET | `/api/readings/month-to-date-report` | Month-to-date report |
 | GET | `/api/readings/previous-month-report` | Previous-month report |
 
-Example daily report:
-
-```text
-GET /api/readings/daily-report?date=2026-11-11
-```
-
-Reports include:
-- Highest reading
-- Lowest reading
-- Average reading
-- Total number of readings
-
 ## Validation Rules
 
-- Reading value must be an integer between 40 and 600 mg/dL.
-- Each user can have only one reading per slot per day.
+- Reading values must be whole numbers between 40 and 600 mg/dL.
+- Each user can record only one reading per slot per day.
 - A maximum of four readings can be recorded per day.
 - Future dates are not allowed.
 - Users can access and modify only their own readings.
 
-## Database Design
+## Reports
 
-### Users Table
+The application provides:
 
-Stores user account information.
+- Highest glucose reading
+- Lowest glucose reading
+- Average glucose reading
+- Total number of readings
+- Reading history
 
-- id
-- name
-- email
-- password_hash
-- created_at
+## Security
 
-### Readings Table
+- Passwords are hashed using bcrypt.
+- JWT authentication protects private API routes.
+- SQL queries use parameterized inputs.
+- Users can access only their own glucose records.
 
-Stores blood glucose readings.
+## Disclaimer
 
-- id
-- user_id
-- reading_date
-- slot
-- value
-- created_at
-
-The readings table
+Sweety is an educational tracking application. It is not a medical device and does not replace professional medical advice or diagnosis.
