@@ -131,11 +131,11 @@ cd frontend
 npm install
 npm run dev
 
+```
 ### 7. Seed sample data
 
 ```bash
 npm run seed
-```
 
 Demo account:
 
