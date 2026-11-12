@@ -136,6 +136,7 @@ npm run dev
 
 ```bash
 npm run seed
+```
 
 Demo account:
 
